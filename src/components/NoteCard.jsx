@@ -1,9 +1,10 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, memo } from 'react'
 import { SettingsContext } from '../SetttingsContext.js'
 
-function NoteCard({ title, body }) {
+function NoteCard({ title, body, onDelete }) {
   const [expanded, setExpanded] = useState(false)
   const { largeText } = useContext(SettingsContext)
+  console.log('render', title)
 
   return (
     <div>
@@ -31,8 +32,16 @@ function NoteCard({ title, body }) {
       >
         {expanded ? 'Show less' : 'Show more'}
       </button>
+      <button
+        type="button"
+        onClick={() => onDelete(id)}
+        className="absolute top-4 right-5 cursor-pointer text-[26px] leading-none text-[#949494] hover:text-[#c18585]"
+      >
+        x
+      </button>
     </div>
   )
 }
 
-export default NoteCard
+export default memo(NoteCard)
+
