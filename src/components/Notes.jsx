@@ -1,5 +1,5 @@
 import NoteCard from './NoteCard.jsx';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Notes() {
     const [notes, setNotes] = useState([
@@ -15,11 +15,15 @@ function Notes() {
     },
   ])
     const [form, setForm] = useState({ title: '', body: '' })
+    const [search, setSearch] = useState('')
+
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    }, [notes])
+
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
-
-    const [search, setSearch] = useState('')
 
     function handleSubmit(e) {
         e.preventDefault()
