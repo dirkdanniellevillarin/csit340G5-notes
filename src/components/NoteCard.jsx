@@ -1,26 +1,28 @@
 import { useState, useContext, memo } from 'react'
-import { SettingsContext } from '../SetttingsContext.js'
+import { SettingsContext } from '../SettingsContext.js'
 
-function NoteCard({ title, body, onDelete }) {
+function NoteCard({ id, title, body, onDelete }) {
   const [expanded, setExpanded] = useState(false)
   const { largeText } = useContext(SettingsContext)
-  console.log('render', title)
 
   return (
     <div>
-      <h3 
-        className={largeText 
-        ? "pr-8 text-[28px] font-normal break-words" 
-        : "pr-8 text-[22px] font-normal break-words"
-        }>
+      <h3
+        className={
+          largeText
+            ? 'pr-8 text-[28px] font-normal break-words'
+            : 'pr-8 text-[22px] font-normal break-words'
+        }
+      >
         {title}
       </h3>
       {expanded && (
-        <p className={
+        <p
+          className={
             largeText
-            ? 'mt-3 text-[17px] break-words whitespace-pre-wrap text-[#4d4d4d]'
-            : 'mt-3 text-[15px] break-words whitespace-pre-wrap text-[#4d4d4d]'
-        }
+              ? 'mt-3 text-[17px] break-words whitespace-pre-wrap text-[#4d4d4d]'
+              : 'mt-3 text-[15px] break-words whitespace-pre-wrap text-[#4d4d4d]'
+          }
         >
           {body}
         </p>
@@ -35,13 +37,13 @@ function NoteCard({ title, body, onDelete }) {
       <button
         type="button"
         onClick={() => onDelete(id)}
+        aria-label={`Delete note: ${title}`}
         className="absolute top-4 right-5 cursor-pointer text-[26px] leading-none text-[#949494] hover:text-[#c18585]"
       >
-        x
+        ×
       </button>
     </div>
   )
 }
 
 export default memo(NoteCard)
-

@@ -19,7 +19,10 @@ function Notes() {
     const saved = localStorage.getItem('notes')
     return saved ? JSON.parse(saved) : startingNotes
   })
-  const [form, setForm] = useState({ title: '', body: '' })
+    const [form, setForm] = useState(() => {
+        const saved = localStorage.getItem('draft')
+        return saved ? JSON.parse(saved) : { title: '', body: '' }
+    })
   const [search, setSearch] = useState('')
   const titleRef = useRef(null)
 
@@ -110,8 +113,13 @@ function Notes() {
               key={note.id}
               className="relative min-h-32 bg-white px-6 py-5 shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]"
             >
-              <NoteCard title={note.title} body={note.body} />
-              <button
+              <NoteCard
+                    id={note.id}
+                    title={note.title}
+                    body={note.body}
+                    onDelete={handleDelete}
+                />
+                <button
                 type="button"
                 onClick={() => handleDelete(note.id)}
                 aria-label={`Delete note: ${note.title}`}

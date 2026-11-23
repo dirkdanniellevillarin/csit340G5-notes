@@ -1,7 +1,7 @@
 import Notes from './components/Notes.jsx'
 import Info from './components/Info.jsx'
 import {useState } from 'react'
-import { SettingsContext } from './SetttingsContext.js'
+import { SettingsContext } from './SettingsContext.js'
 
 function App() {
   const [largeText, setLargeText] = useState( false )
